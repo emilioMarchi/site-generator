@@ -1,0 +1,85 @@
+{
+  "sitio": {
+    "nombre": "Consultora ABC",
+    "slug": "consultora-abc",
+    "descripcion": "Consultora especializada en soluciones empresariales",
+    "tipo": "landing",
+    "template": "landing"
+  },
+  
+  "dominio": {
+    "principal": "consultoraabc.com.ar",
+    "www": true,
+    "ssl": true
+  },
+  
+  "theme": {
+    "colores": {
+      "primary": "#2563eb",
+      "secondary": "#1e40af",
+      "accent": "#f59e0b"
+    },
+    "fuente": "Inter",
+    "borderRadius": "8px"
+  },
+  
+  "contacto": {
+    "email": "hola@consultoraabc.com.ar",
+    "telefono": "+54 9 11 9876-5432",
+    "whatsapp": "+54 9 11 9876-5432",
+    "direccion": "Av. Libertador 1500, CABA",
+    "horarios": "Lun a Vie 9:00 a 18:00"
+  },
+  
+  "redes": {
+    "linkedin": "consultoraabc",
+    "instagram": "consultoraabc",
+    "facebook": "consultoraabc"
+  },
+  
+  "servicios": {
+    "firebase": {
+      "coleccion": "consultora-abc",
+      "proyectoId": "consultora-abc"
+    },
+    "resend": {
+      "dominio": "consultoraabc.com.ar",
+      "emailFrom": "noreply@consultoraabc.com.ar"
+    }
+  },
+  
+  "seo": {
+    "tituloBase": "Consultora ABC - Soluciones Empresariales",
+    "metaDescription": "Consultora especializada en soluciones empresariales. Te ayudamos a hacer crecer tu negocio."
+  },
+  
+  "data": {
+    "servicios": [
+      {
+        "id": "servicio-1",
+        "nombre": "Consultoría Estratégica",
+        "descripcion": "Análisis integral de tu negocio para identificar oportunidades de crecimiento y mejora.",
+        "icono": "lightbulb",
+        "orden": 1
+      },
+      {
+        "id": "servicio-2",  
+        "nombre": "Gestión de Proyectos",
+        "descripcion": "Implementación de metodologías ágiles para optimizar tus procesos internos.",
+        "icono": "briefcase",
+        "orden": 2
+      },
+      {
+        "id": "servicio-3",
+        "nombre": "Capacitación Corporate",
+        "descripcion": "Programas de formación adaptados a las necesidades de tu equipo.",
+        "icono": "users",
+        "orden": 3
+      }
+    ]
+  },
+  
+  "secciones": {
+    "inicio": ["hero", "features", "contacto"]
+  }
+}

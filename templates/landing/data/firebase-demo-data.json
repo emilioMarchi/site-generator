@@ -1,0 +1,40 @@
+{
+  "config": [
+    {
+      "id": "config-principal",
+      "nombre": "Consultora ABC",
+      "email": "hola@consultoraabc.com.ar",
+      "telefono": "+54 9 11 9876-5432",
+      "whatsapp": "+54 9 11 9876-5432",
+      "direccion": "Av. Libertador 1500, CABA",
+      "horarios": "Lun a Vie 9:00 a 18:00",
+      "instagram": "consultoraabc",
+      "facebook": "consultoraabc",
+      "youtube": "@consultoraabc"
+    }
+  ],
+  "servicios": [
+    {
+      "id": "servicio-1",
+      "nombre": "Consultoría Estratégica",
+      "descripcion": "Análisis integral de tu negocio para identificar oportunidades de crecimiento y mejora.",
+      "icono": "lightbulb",
+      "orden": 1
+    },
+    {
+      "id": "servicio-2",
+      "nombre": "Gestión de Proyectos",
+      "descripcion": "Implementación de metodologías ágiles para optimizar tus procesos internos.",
+      "icono": "briefcase",
+      "orden": 2
+    },
+    {
+      "id": "servicio-3",
+      "nombre": "Capacitación Corporate",
+      "descripcion": "Programas de formación adaptados a las necesidades de tu equipo.",
+      "icono": "users",
+      "orden": 3
+    }
+  ],
+  "mensajes": []
+}

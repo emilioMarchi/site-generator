@@ -1,0 +1,61 @@
+{
+  "sitio": {
+    "nombre": "Ovnicanal",
+    "slug": "ovnicanal",
+    "descripcion": "Paneles solares y soluciones de energía renovable para tu hogar y empresa. Ahorrá dinero mientras cuidás el planeta.",
+    "tipo": "landing",
+    "template": "landing"
+  },
+  
+  "dominio": {
+    "principal": "ovnicanal.com.ar",
+    "www": true,
+    "ssl": true
+  },
+  
+  "theme": {
+    "colores": {
+      "primary": "#22c55e",
+      "secondary": "#581c87",
+      "accent": "#a855f7"
+    },
+    "fuente": "Inter",
+    "borderRadius": "8px"
+  },
+  
+  "contacto": {
+    "email": "emiliomarchi.dev@gmail.com",
+    "telefono": "3425161099",
+    "whatsapp": "3425161099"
+  },
+  
+  "redes": {
+    "instagram": "emilio__mar"
+  },
+  
+  "servicios": {
+    "firebase": {
+      "coleccion": "ovnicanal",
+      "apiKey": "AIzaSyDcr8xNlUsfZIhAQ1-IyXr0n9uqE1Slyuc",
+      "authDomain": "site-generator-db.firebaseapp.com",
+      "projectId": "site-generator-db",
+      "storageBucket": "site-generator-db.firebasestorage.app",
+      "messagingSenderId": "184414289992",
+      "appId": "1:184414289992:web:57c1f2ddc8cc3fb00c987d",
+      "measurementId": "G-7QRXEGB54J"
+    },
+    "resend": {
+      "dominio": "ovnicanal.com.ar",
+      "emailFrom": "noreply@ovnicanal.com.ar"
+    }
+  },
+  
+  "seo": {
+    "tituloBase": "Ovnicanal | Paneles Solares y Energía Renovable",
+    "metaDescription": "Instalación de paneles solares. Ahorrá en tu factura de luz con energía solar renovable."
+  },
+  
+  "secciones": {
+    "inicio": ["hero", "features", "contacto"]
+  }
+}

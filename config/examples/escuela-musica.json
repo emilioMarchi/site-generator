@@ -1,0 +1,98 @@
+{
+  "sitio": {
+    "nombre": "Escuela de Música Pilar",
+    "slug": "escuela-pilar",
+    "descripcion": "Escuela de música barrial en Pilar - Clases de instrumentos para todas las edades",
+    "tipo": "multipage",
+    "template": "escuelademusica-website"
+  },
+  
+  "dominio": {
+    "principal": "escuelademusica-pilar.com.ar",
+    "www": true,
+    "ssl": true
+  },
+  
+  "theme": {
+    "colores": {
+      "primary": "#ff6b35",
+      "secondary": "#004e89",
+      "accent": "#f7c59f",
+      "success": "#22c55e",
+      "error": "#ef4444"
+    },
+    "fuente": "Poppins",
+    "borderRadius": "12px"
+  },
+  
+  "contacto": {
+    "email": "info@escuelademusica-pilar.com.ar",
+    "telefono": "+54 9 11 1234-5678",
+    "whatsapp": "+54 9 11 1234-5678",
+    "direccion": "Av. Belgrano 123, Pilar, Buenos Aires",
+    "horarios": "Lunes a Viernes de 9:00 a 20:00"
+  },
+  
+  "redes": {
+    "instagram": "escueladepilar",
+    "facebook": "escueladepilar",
+    "youtube": "@escueladepilar"
+  },
+  
+  "servicios": {
+    "firebase": {
+      "coleccion": "escuela-pilar"
+    },
+    "resend": {
+      "dominio": "escuelademusica-pilar.com.ar",
+      "emailFrom": "noreply@escuelademusica-pilar.com.ar"
+    },
+    "mercadopago": {
+      "enabled": true
+    }
+  },
+  
+  "seo": {
+    "tituloBase": "Escuela de Música Pilar | Clases de Instrumentos",
+    "metaDescription": "Aprende música en Pilar. Guitarra, piano, batería y más. Clases para niños y adultos.",
+    "robots": "index, follow"
+  },
+  
+  "secciones": {
+    "inicio": ["hero", "clases", "novedades", "contacto", "donations"],
+    "nosotros": ["text-block", "galeria", "contacto"],
+    "clases": ["clases-grid", "contacto"]
+  },
+  
+  "pages": [
+    {
+      "slug": "inicio",
+      "title": "Inicio",
+      "sections": [
+        {
+          "type": "hero",
+          "content": {
+            "title": "La música transforma vidas",
+            "description": "Aprende a tocar tu instrumento favorito en nuestra escuela",
+            "ctaText": "Inscribite ahora",
+            "ctaLink": "/contacto?form=inscripcion"
+          }
+        },
+        {
+          "type": "clases",
+          "content": {
+            "title": "Nuestras Clases",
+            "layout": "grid"
+          }
+        },
+        {
+          "type": "donations",
+          "content": {
+            "title": "Apoyá nuestro proyecto",
+            "description": "Tu aporte ayuda a que más chicos puedan aprender música"
+          }
+        }
+      ]
+    }
+  ]
+}

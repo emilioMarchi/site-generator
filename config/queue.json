@@ -1,0 +1,17 @@
+{
+  "pendientes": [],
+  "procesados": [
+    "config/examples/landing-page.json",
+    "config/ovnicanal.json",
+    "config/ovnicanal.json",
+    "config/ovnicanal.json",
+    "config/ovnicanal.json",
+    "config/test-sitio.json",
+    "config/test-sitio.json",
+    "config/test-sitio.json",
+    "config/ovnicanal.json",
+    "config/ovnicanal.json",
+    "config/ovnicanal.json"
+  ],
+  "enProceso": null
+}

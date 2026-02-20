@@ -1,0 +1,32 @@
+{
+  "name": "site-generator",
+  "version": "1.0.0",
+  "description": "Generador de sitios web a partir de configuraciones",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "generate": "npm run build && node dist/index.js",
+    "generate:example": "npm run build && node dist/index.js generate --config=config/examples/escuela-musica.json",
+    "queue:status": "npm run build && node dist/index.js queue:status",
+    "queue:process": "npm run build && node dist/index.js queue:process"
+  },
+  "keywords": [
+    "site-generator",
+    "web",
+    "nextjs",
+    "template"
+  ],
+  "author": "Emilio Marchi",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}
