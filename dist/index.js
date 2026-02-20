@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
 // Rutas base
 const ROOT_DIR = path.resolve(__dirname, '../');
 const TEMPLATES_DIR = path.join(ROOT_DIR, 'templates');
-const OUTPUT_DIR = path.join(ROOT_DIR, 'output');
+const OUTPUT_DIR = path.join(ROOT_DIR, '../sites-output');
 const CONFIG_DIR = path.join(ROOT_DIR, 'config');
 // Rutas alternativas (proyectos de referencia)
 const REFERENCE_PROJECTS_DIR = path.resolve(ROOT_DIR, '../../DESARROLLO-WEB');
@@ -127,7 +127,7 @@ NEXT_PUBLIC_SITE_URL="https://${dominio}"
 NEXT_PUBLIC_SITE_SLUG="${slug}"
 NEXT_PUBLIC_MAP_KEY="AIzaSyBx22d-0k89a6XudTZTl7yPLHslLPrr_zk"
 
-# Firebase Configuration (base - replace with client's own project for production)
+# Firebase Client (public)
 NEXT_PUBLIC_FIREBASE_API_KEY="${firebase.apiKey || 'AIzaSyDcr8xNlUsfZIhAQ1-IyXr0n9uqE1Slyuc'}"
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="${firebase.authDomain || 'site-generator-db.firebaseapp.com'}"
 NEXT_PUBLIC_FIREBASE_PROJECT_ID="${firebase.projectId || 'site-generator-db'}"
@@ -135,6 +135,11 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="${firebase.storageBucket || 'site-generator
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="${firebase.messagingSenderId || '184414289992'}"
 NEXT_PUBLIC_FIREBASE_APP_ID="${firebase.appId || '1:184414289992:web:57c1f2ddc8cc3fb00c987d'}"
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID="${firebase.measurementId || 'G-7QRXEGB54J'}"
+
+# Firebase Admin (server-side - for admin panel)
+FIREBASE_PROJECT_ID="${firebase.projectId || 'site-generator-db'}"
+FIREBASE_CLIENT_EMAIL="${firebase.clientEmail || ''}"
+FIREBASE_PRIVATE_KEY="${firebase.privateKey || ''}"
 
 # --- SERVER VARIABLES ---
 RESEND_API_KEY="${config.servicios.resend?.apiKey || 're_2yRGpzPD_KHK2sgrWVFBPPjsBgSVFKjk3'}"
@@ -207,6 +212,13 @@ async function generateSite(configPath) {
     const envPath = path.join(outputPath, '.env.local');
     fs.writeFileSync(envPath, envContent);
     console.log(chalk.gray('  Generando .env.local...'));
+    // Copiar service account de Firebase Admin
+    const serviceAccountPath = path.join(ROOT_DIR, 'site-generator-db-firebase-adminsdk-fbsvc-bff160769d.json');
+    if (fs.existsSync(serviceAccountPath)) {
+        const destServiceAccountPath = path.join(outputPath, 'firebase-service-account.json');
+        fs.copyFileSync(serviceAccountPath, destServiceAccountPath);
+        console.log(chalk.gray('  Copiando service account...'));
+    }
     // Guardar config en el proyecto generado
     const generatedConfigPath = path.join(outputPath, 'site-config.json');
     fs.writeFileSync(generatedConfigPath, JSON.stringify(config, null, 2));
