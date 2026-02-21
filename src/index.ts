@@ -407,9 +407,14 @@ async function generateSite(configPath: string, businessDataPath?: string, doBui
   
   // Ejecutar build si se solicita
   if (doBuild) {
+    // Usar npm.cmd en Windows
+    const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+    const isWin = process.platform === 'win32';
+    
     console.log(chalk.gray('\n  Ejecutando npm install...'));
     try {
-      execSync('npm install', { cwd: outputPath, stdio: 'inherit' });
+      const installCmd = isWin ? `cmd /c "${npmCmd} install"` : `${npmCmd} install`;
+      execSync(installCmd, { cwd: outputPath, stdio: 'inherit' });
       console.log(chalk.green('  ✓ Dependencias instaladas'));
     } catch (error) {
       console.log(chalk.yellow('  ⚠ npm install tuvo errores'));
@@ -418,7 +423,8 @@ async function generateSite(configPath: string, businessDataPath?: string, doBui
     
     console.log(chalk.gray('\n  Ejecutando build...'));
     try {
-      execSync('npm run build', { cwd: outputPath, stdio: 'inherit' });
+      const buildCmd = isWin ? `cmd /c "${npmCmd} run build"` : `${npmCmd} run build`;
+      execSync(buildCmd, { cwd: outputPath, stdio: 'inherit' });
       console.log(chalk.green('  ✓ Build completado'));
     } catch (error) {
       console.log(chalk.yellow('  ⚠ Build tuvo errores (revisá el output arriba)'));

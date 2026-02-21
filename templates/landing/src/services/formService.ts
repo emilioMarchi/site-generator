@@ -21,18 +21,3 @@ export async function guardarMensaje(data: FormData): Promise<{ success: boolean
   
   return resultado;
 }
-
-/**
- * Convertir documento de Firestore a tipo Mensaje
- */
-export function docToMensaje(doc: QueryDocumentSnapshot<DocumentData>): Mensaje {
-  const data = doc.data();
-  return {
-    id: doc.id,
-    nombre: data.nombre,
-    email: data.email,
-    mensaje: data.mensaje,
-    fecha: data.fecha?.toDate() || new Date(),
-    leido: data.leido || false
-  };
-}

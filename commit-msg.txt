@@ -1,1 +1,1 @@
-feat: agregar flag --build para ejecutar npm install y build
+fix: corregir tipos y errores de build

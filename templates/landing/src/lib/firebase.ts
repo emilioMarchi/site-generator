@@ -33,8 +33,8 @@ if (typeof window !== 'undefined' && firebaseConfig.apiKey && firebaseConfig.api
 
 export { db, SITE_SLUG };
 
-// Tipos re-exportados para facilitar imports
-export type { Servicio, ConfigNegocio, Mensaje, FormData } from '@/types';
+// Tipos re-exportados desde index
+export type { FormData, Mensaje } from '@/types';
 
 /**
  * Obtener path de colección para el sitio (estructura multi-tenant)

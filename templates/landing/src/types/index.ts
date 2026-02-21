@@ -1,139 +1,54 @@
 /**
- * Types for Multi-tenant Data Structure
- * 
- * Firestore Structure:
- * sites/{slug}/
- *   ├── config/        -> SiteConfig
- *   ├── sections/       -> Section[]
- *   ├── services/      -> Service[]
- *   ├── messages/       -> Message[]
- *   └── media/         -> Media[]
+ * Tipos unificados para la aplicación
+ * Consolida site-data.json y tipos de formulario
  */
 
 // ============================================
-// SITE CONFIG
+// SITE DATA (site-data.json)
 // ============================================
 
-export interface SiteConfig {
-  name: string;
-  description: string;
-  email: string;
-  phone: string;
-  whatsapp?: string;
-  address?: string;
-  schedule?: string;
-  social?: SocialMedia;
-  theme?: ThemeConfig;
-  seo?: SEOConfig;
-  active: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+export interface SiteDocument {
+  sitio: SitioMeta;
+  dominio: DominioConfig;
+  theme: ThemeConfig;
+  business: BusinessData;
+  seo: SeoConfig;
+  integrations: IntegrationsConfig;
+  estado: EstadoConfig;
 }
 
-export interface SocialMedia {
-  instagram?: string;
-  facebook?: string;
-  youtube?: string;
-  linkedin?: string;
-  twitter?: string;
+export interface SitioMeta {
+  nombre: string;
+  slug: string;
+  descripcion: string;
+  tipo: 'landing' | 'multipage' | 'ecommerce';
+  template: string;
+  fechaCreacion: string;
+  ultimaActualizacion: string;
+}
+
+export interface DominioConfig {
+  principal: string;
+  www: boolean;
+  ssl: boolean;
 }
 
 export interface ThemeConfig {
-  colors: {
+  colores: {
     primary: string;
-    secondary: string;
+    secondary?: string;
     accent?: string;
+    background?: string;
+    text?: string;
     success?: string;
     error?: string;
   };
-  font: string;
-  borderRadius: string;
+  fuente: string;
+  fuenteHeadings?: string;
+  borderRadius?: string;
 }
 
-export interface SEOConfig {
-  title: string;
-  metaDescription: string;
-  robots?: string;
-  ogImage?: string;
-}
-
-// ============================================
-// SECTIONS
-// ============================================
-
-export interface Section {
-  id: string;
-  type: SectionType;
-  title?: string;
-  subtitle?: string;
-  content: Record<string, any>;
-  order: number;
-  visible: boolean;
-}
-
-export type SectionType = 
-  | 'hero' 
-  | 'features' 
-  | 'services' 
-  | 'testimonials' 
-  | 'contact' 
-  | 'faq' 
-  | 'gallery' 
-  | 'cta'
-  | 'location';
-
-// ============================================
-// SERVICES / PRODUCTS
-// ============================================
-
-export interface Service {
-  id: string;
-  name: string;
-  description: string;
-  price?: number;
-  icon?: string;
-  image?: string;
-  featured: boolean;
-  order: number;
-  active: boolean;
-}
-
-// ============================================
-// MESSAGES / CONTACTS
-// ============================================
-
-export interface Message {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string;
-  message: string;
-  date: Date;
-  read: boolean;
-  replied: boolean;
-}
-
-// ============================================
-// MEDIA / FILES
-// ============================================
-
-export interface Media {
-  id: string;
-  name: string;
-  url: string;
-  type: 'image' | 'video' | 'document';
-  size?: number;
-  alt?: string;
-  order: number;
-  uploadedAt: Date;
-}
-
-// ============================================
-// BUSINESS PROFILE
-// ============================================
-
-export interface BusinessProfile {
-  // Identity
+export interface BusinessData {
   name: string;
   tagline?: string;
   description?: string;
@@ -141,53 +56,27 @@ export interface BusinessProfile {
   mission?: string;
   vision?: string;
   values?: string[];
-  
-  // Services (detailed)
-  services?: BusinessService[];
-  
-  // Team
+  services?: Service[];
   team?: TeamMember[];
-  
-  // Testimonials
-  testimonials?: Testimonial[];
-  
-  // Contact (extended)
-  contact?: BusinessContact;
-  
-  // Communication
-  communication?: CommunicationConfig;
-  
-  // Social media (extended)
-  social?: SocialMedia;
-  
-  // Target audience
-  targetAudience?: TargetAudience;
-  
-  // Differentiators
+  contact?: ContactInfo;
+  social?: SocialLinks;
   differentiators?: string[];
-  
-  // Certifications & Awards
-  certifications?: string[];
-  awards?: string[];
-  
-  // Pricing
-  pricing?: PricingConfig;
-  
-  createdAt?: Date;
-  updatedAt?: Date;
+  targetAudience?: TargetAudience;
 }
 
-export interface BusinessService {
+export interface Service {
   id: string;
   name: string;
   description: string;
-  process?: string;
-  duration?: string;
   price?: string;
+  priceFrom?: number;
+  priceTo?: number;
+  currency?: string;
+  duration?: string;
+  process?: string;
   includes?: string[];
-  faq?: FAQ[];
   featured?: boolean;
-  order?: number;
+  orden: number;
 }
 
 export interface TeamMember {
@@ -196,33 +85,24 @@ export interface TeamMember {
   role: string;
   bio?: string;
   photo?: string;
-  order?: number;
 }
 
-export interface Testimonial {
-  id: string;
-  client: string;
-  text: string;
-  rating?: number;
-  date?: string;
-  visible?: boolean;
-}
-
-export interface BusinessContact {
-  email: string;
-  phone: string;
+export interface ContactInfo {
+  email?: string;
+  phone?: string;
   whatsapp?: string;
   address?: string;
+  city?: string;
+  country?: string;
   schedule?: string;
-  responseTime?: string;
 }
 
-export interface CommunicationConfig {
-  preferredChannel: 'whatsapp' | 'email' | 'phone';
-  responseTime: string;
-  language: string;
-  tone: 'formal' | 'informal' | 'amigable';
-  faq?: FAQ[];
+export interface SocialLinks {
+  instagram?: string;
+  facebook?: string;
+  youtube?: string;
+  linkedin?: string;
+  twitter?: string;
 }
 
 export interface TargetAudience {
@@ -231,35 +111,53 @@ export interface TargetAudience {
   painPoints?: string[];
 }
 
-export interface PricingConfig {
-  currency: string;
-  paymentMethods?: string[];
-  plans?: PricingPlan[];
+export interface SeoConfig {
+  tituloBase: string;
+  metaDescription: string;
+  metaKeywords?: string[];
+  ogImage?: string;
+  robots?: string;
 }
 
-export interface PricingPlan {
-  id: string;
-  name: string;
-  description?: string;
-  price: string;
-  features?: string[];
-  featured?: boolean;
+export interface IntegrationsConfig {
+  firebase: {
+    projectId: string;
+    collection: string;
+  };
+  resend?: {
+    domain: string;
+    emailFrom: string;
+  };
+  analytics?: {
+    GA_MEASUREMENT_ID?: string;
+  };
 }
 
-export interface FAQ {
-  question: string;
-  answer: string;
+export interface EstadoConfig {
+  publicado: boolean;
+  modo: 'production' | 'staging';
 }
 
 // ============================================
-// FORM DATA
+// FORM DATA (Contact Form)
 // ============================================
 
 export interface FormData {
-  name: string;
+  nombre: string;
   email: string;
-  phone?: string;
-  message: string;
+  telefono?: string;
+  mensaje: string;
+}
+
+export interface Mensaje {
+  id: string;
+  nombre: string;
+  email: string;
+  telefono?: string;
+  mensaje: string;
+  fecha: Date;
+  leido: boolean;
+  sitioSlug?: string;
 }
 
 // ============================================
@@ -270,11 +168,4 @@ export interface ApiResponse<T> {
   success: boolean;
   data?: T;
   error?: string;
-}
-
-export interface ListResponse<T> {
-  items: T[];
-  total: number;
-  page: number;
-  limit: number;
 }

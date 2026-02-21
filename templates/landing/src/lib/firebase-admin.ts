@@ -93,7 +93,9 @@ export async function getSiteConfig(): Promise<DocumentData | null> {
   
   try {
     const doc = await firestore.collection(getSiteCollection('config')).doc('main').get();
-    return doc.exists ? doc.data() : null;
+    if (!doc.exists) return null;
+    const data = doc.data();
+    return data !== undefined ? data : null;
   } catch (error) {
     console.error('Error getting site config:', error);
     return null;
