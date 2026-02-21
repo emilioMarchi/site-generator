@@ -170,7 +170,7 @@ function copyTemplateDir(src, dest) {
         }
     }
 }
-async function generateSite(configPath, businessDataPath, doBuild) {
+async function generateSite(configPath, businessDataPath, doBuild, doDeploy) {
     console.log(chalk.bold.cyan('\n🚀 Generando sitio web...\n'));
     // Cargar configuración
     const config = loadConfig(configPath);
@@ -296,8 +296,23 @@ async function generateSite(configPath, businessDataPath, doBuild) {
             console.log(chalk.yellow('  ⚠ Build tuvo errores (revisá el output arriba)'));
         }
     }
+    // Deploy a Vercel si se solicita
+    if (doDeploy && doBuild) {
+        console.log(chalk.gray('\n  Deploying to Vercel...'));
+        try {
+            const deployCmd = 'cmd /c "vercel deploy --prod --yes"';
+            execSync(deployCmd, { cwd: outputPath, stdio: 'inherit' });
+            console.log(chalk.green('  ✓ Deploy completado!'));
+        }
+        catch (error) {
+            console.log(chalk.yellow('  ⚠ Deploy tuvo errores'));
+        }
+    }
     console.log(chalk.gray('\n  Próximos pasos:'));
-    if (doBuild) {
+    if (doDeploy) {
+        console.log(chalk.cyan('  ✓ Deployment completado!'));
+    }
+    else if (doBuild) {
         console.log(chalk.cyan('  Listo para deploy en Vercel!'));
     }
     else {
@@ -355,10 +370,11 @@ program
     .option('-b, --business-data <path>', 'Ruta al archivo con información del negocio (TXT, DOCX, PDF)')
     .option('-d, --demo', 'Usar datos de demostración (sin documento)')
     .option('--build', 'Ejecutar npm run build después de generar')
+    .option('--deploy', 'Hacer deploy a Vercel después de generar (requiere --build)')
     .action(async (options) => {
     try {
         const businessDataPath = options.demo ? null : options.businessData;
-        await generateSite(options.config, businessDataPath, options.build);
+        await generateSite(options.config, businessDataPath, options.build, options.deploy);
     }
     catch (error) {
         console.error(chalk.red('Error:'), error);

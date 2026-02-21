@@ -1,0 +1,36 @@
+{
+  "name": "ESTUDIO PÍXEL & MADERA",
+  "mission": "es simple: humanizar la tecnología para negocios que aman lo que hacen",
+  "services": [
+    {
+      "name": "Web 'Llave en Mano'",
+      "description": "Un sitio profesional con catálogo de productos",
+      "price": "$1"
+    },
+    {
+      "name": "Mantenimiento 'Cero Estrés'",
+      "description": "Actualizaciones y hosting mensual por $80",
+      "price": "$80"
+    },
+    {
+      "name": "design y ya registramos el dominio pixelmadera",
+      "description": "",
+      "price": "Consultar"
+    }
+  ],
+  "contact": {
+    "phone": "+34 612 345 678",
+    "whatsapp": "+34 612 345 678",
+    "email": "contacto@pixelmadera.com"
+  },
+  "social": {
+    "instagram": "@estamos",
+    "facebook": "como"
+  },
+  "differentiators": [
+    "calidad",
+    "local"
+  ],
+  "tagline": "Especialistas en lo que hacemos",
+  "description": "Un negocio dedicado a ofrecer productos y servicios de calidad."
+}
