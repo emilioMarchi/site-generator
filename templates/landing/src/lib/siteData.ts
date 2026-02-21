@@ -3,7 +3,7 @@
  * Loads site data from site-data.json
  */
 
-import siteDataJson from '../../../../site-data.json';
+import siteDataJson from '../../site-data.json';
 import type { SiteDocument } from '@/types/site';
 
 // Type assertion for imported JSON
