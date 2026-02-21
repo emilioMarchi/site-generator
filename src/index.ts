@@ -3,6 +3,7 @@
  * 
  * Uso:
  *   npm run generate -- --config=config/examples/escuela-musica.json
+ *   npm run generate -- --config=config/examples/escuela-musica.json --business-data=data/sabor-y-raiz.txt
  *   npm run generate -- --slug=mi-nuevo-sitio --template=landing-basic
  */
 
@@ -11,6 +12,8 @@ import chalk from 'chalk';
 import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { processBusinessDocument, getDemoBusinessData } from './services/aiService.js';
+import { saveSiteData, saveToFirestore } from './services/firestoreService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -276,7 +279,7 @@ function copyTemplateDir(src: string, dest: string): void {
   }
 }
 
-async function generateSite(configPath: string): Promise<void> {
+async function generateSite(configPath: string, businessDataPath?: string): Promise<void> {
   console.log(chalk.bold.cyan('\n🚀 Generando sitio web...\n'));
   
   // Cargar configuración
@@ -287,6 +290,31 @@ async function generateSite(configPath: string): Promise<void> {
   console.log(chalk.gray('  Template:'), template);
   console.log(chalk.gray('  Nombre:'), nombre);
   console.log(chalk.gray('  Slug:'), slug);
+  
+  // Procesar documento de negocio con IA (si se proporciona)
+  let businessData = null;
+  if (businessDataPath) {
+    try {
+      console.log(chalk.gray('  Procesando datos del negocio...'));
+      businessData = await processBusinessDocument(businessDataPath);
+      
+      if (businessData) {
+        console.log(chalk.green('  ✓ Datos del negocio procesados con IA'));
+        console.log(chalk.gray('    Nombre:'), businessData.name);
+        console.log(chalk.gray('    Servicios:'), businessData.services?.length || 0);
+      }
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.log(chalk.yellow('  ⚠ Error procesando documento, usando datos de muestra'));
+      console.log(chalk.gray('    Error:'), errorMessage);
+      businessData = getDemoBusinessData(nombre);
+    }
+  } else {
+    // Usar datos de muestra si no hay documento
+    console.log(chalk.gray('  Usando datos de muestra...'));
+    businessData = getDemoBusinessData(nombre);
+  }
+  
   console.log('');
   
   // Determinar la ruta de la plantilla
@@ -346,6 +374,21 @@ async function generateSite(configPath: string): Promise<void> {
   // Guardar config en el proyecto generado
   const generatedConfigPath = path.join(outputPath, 'site-config.json');
   fs.writeFileSync(generatedConfigPath, JSON.stringify(config, null, 2));
+  
+  // Guardar business data en el proyecto generado
+  const savedBusinessDataPath = path.join(outputPath, 'business-data.json');
+  fs.writeFileSync(savedBusinessDataPath, JSON.stringify(businessData, null, 2));
+  console.log(chalk.gray('  Guardando datos del negocio...'));
+  
+  // Guardar datos unificados para Firestore (estructura nueva)
+  await saveSiteData(outputPath, config, businessData, slug);
+  
+  // Guardar en Firestore (si está configurado)
+  const projectId = config.servicios?.firebase?.projectId || slug;
+  const siteDoc = await import('./services/firestoreService.js').then(m => 
+    m.mergeDataForFirestore(config, businessData, slug)
+  );
+  await saveToFirestore(projectId, slug, siteDoc);
   
   // Actualizar cola
   const queue = loadQueue();
@@ -420,9 +463,12 @@ program
   .command('generate')
   .description('Generar un sitio a partir de un archivo de configuración')
   .requiredOption('-c, --config <path>', 'Ruta al archivo de configuración')
+  .option('-b, --business-data <path>', 'Ruta al archivo con información del negocio (TXT, DOCX, PDF)')
+  .option('-d, --demo', 'Usar datos de demostración (sin documento)')
   .action(async (options) => {
     try {
-      await generateSite(options.config);
+      const businessDataPath = options.demo ? null : options.businessData;
+      await generateSite(options.config, businessDataPath);
     } catch (error) {
       console.error(chalk.red('Error:'), error);
       process.exit(1);

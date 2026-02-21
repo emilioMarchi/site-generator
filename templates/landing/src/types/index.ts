@@ -129,6 +129,129 @@ export interface Media {
 }
 
 // ============================================
+// BUSINESS PROFILE
+// ============================================
+
+export interface BusinessProfile {
+  // Identity
+  name: string;
+  tagline?: string;
+  description?: string;
+  history?: string;
+  mission?: string;
+  vision?: string;
+  values?: string[];
+  
+  // Services (detailed)
+  services?: BusinessService[];
+  
+  // Team
+  team?: TeamMember[];
+  
+  // Testimonials
+  testimonials?: Testimonial[];
+  
+  // Contact (extended)
+  contact?: BusinessContact;
+  
+  // Communication
+  communication?: CommunicationConfig;
+  
+  // Social media (extended)
+  social?: SocialMedia;
+  
+  // Target audience
+  targetAudience?: TargetAudience;
+  
+  // Differentiators
+  differentiators?: string[];
+  
+  // Certifications & Awards
+  certifications?: string[];
+  awards?: string[];
+  
+  // Pricing
+  pricing?: PricingConfig;
+  
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface BusinessService {
+  id: string;
+  name: string;
+  description: string;
+  process?: string;
+  duration?: string;
+  price?: string;
+  includes?: string[];
+  faq?: FAQ[];
+  featured?: boolean;
+  order?: number;
+}
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  bio?: string;
+  photo?: string;
+  order?: number;
+}
+
+export interface Testimonial {
+  id: string;
+  client: string;
+  text: string;
+  rating?: number;
+  date?: string;
+  visible?: boolean;
+}
+
+export interface BusinessContact {
+  email: string;
+  phone: string;
+  whatsapp?: string;
+  address?: string;
+  schedule?: string;
+  responseTime?: string;
+}
+
+export interface CommunicationConfig {
+  preferredChannel: 'whatsapp' | 'email' | 'phone';
+  responseTime: string;
+  language: string;
+  tone: 'formal' | 'informal' | 'amigable';
+  faq?: FAQ[];
+}
+
+export interface TargetAudience {
+  ageRange?: string;
+  interests?: string[];
+  painPoints?: string[];
+}
+
+export interface PricingConfig {
+  currency: string;
+  paymentMethods?: string[];
+  plans?: PricingPlan[];
+}
+
+export interface PricingPlan {
+  id: string;
+  name: string;
+  description?: string;
+  price: string;
+  features?: string[];
+  featured?: boolean;
+}
+
+export interface FAQ {
+  question: string;
+  answer: string;
+}
+
+// ============================================
 // FORM DATA
 // ============================================
 

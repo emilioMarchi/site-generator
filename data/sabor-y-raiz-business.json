@@ -1,0 +1,83 @@
+{
+  "name": "Sabor y Raíz",
+  "tagline": "Café de especialidad y almuerzos orgánicos",
+  "description": "Café de especialidad que también sirve almuerzos orgánicos. No somos una cafetería rápida de paso; la idea es que la gente venga a trabajar o a tener reuniones tranquilas. Todo lo que servimos lo compramos a productores locales en un radio de 100km.",
+  "history": "Sabor y Raíz nació con la misión de conectar el campo con la ciudad, promoviendo el consumo responsable y apoyando a familias de caficultores independientes.",
+  "mission": "Conectar el campo con la ciudad y promover el consumo responsable. Queremos que el cliente sepa que cada taza de café apoya a una familia de caficultores independientes.",
+  "vision": "Ser referente en café de especialidad y comida orgánica, generando comunidad y transparencia.",
+  "values": ["Calidad", "Comunidad", "Transparencia", "Apoyo a productores locales", "Consumo responsable"],
+  "services": [
+    {
+      "name": "Café de Especialidad",
+      "description": "Variedades de café de specialty que rotamos cada mes. Cada taza apoya a familias de caficultores independientes.",
+      "price": "Desde $800",
+      "process": "Selección de granos -> Tueste medio -> Molienda en el momento",
+      "duration": "5-10 min",
+      "includes": ["Granos de especialidad", "Leche alternativa disponible"]
+    },
+    {
+      "name": "Brunch",
+      "description": "Brunch completo con productos orgánicos locales.",
+      "price": "$2500-3500",
+      "process": "Pedido en mesa -> Preparación fresca",
+      "duration": "20-30 min",
+      "includes": ["Bebida caliente", "Postre incluido"]
+    },
+    {
+      "name": "Almuerzos Ligeros",
+      "description": "Almuerzos orgánicos con ensaladas de estación y opciones saludables.",
+      "price": "$1800-2200",
+      "includes": ["Plato principal", "Bebida"]
+    },
+    {
+      "name": "Pastelería Artesanal",
+      "description": "Pastelería artesanal sin harinas refinadas, hecha en casa.",
+      "price": "$600-1200",
+      "includes": ["Opciones sin gluten disponibles"]
+    },
+    {
+      "name": "Catas a Ciegas",
+      "description": "Experiencia de cata de café para grupos de 6 personas. Una vez por semana.",
+      "price": "$3500 por persona",
+      "duration": "1.5 horas",
+      "includes": ["5 variedades de café", "Snacks", "Certificado de participación"]
+    },
+    {
+      "name": "Combo Coworking",
+      "description": "Café ilimitado por 3 horas. Ideal para trabajar cómodamente.",
+      "price": "$1500",
+      "duration": "3 horas",
+      "includes": ["Café ilimitado", "Wi-Fi gratuito", "Ambiente de trabajo"]
+    },
+    {
+      "name": "Venta de Café en Grano",
+      "description": "Bolsas de café en grano para llevar a casa.",
+      "price": "$1200-2000",
+      "includes": ["Grano fresco", "Recomendaciones de preparación"]
+    }
+  ],
+  "differentiators": [
+    "Café de especialidad que apoya a caficultores independientes",
+    "Productos 100% locales en un radio de 100km",
+    "Ambiente cálido y personal que saluda por nombre",
+    "Combo Coworking para trabajar cómodamente",
+    "Catas semanales educativas",
+    "Respuesta personal en menos de 2 horas a quejas en Google"
+  ],
+  "targetAudience": {
+    "ageRange": "25-45",
+    "interests": ["Café de calidad", "Trabajo remoto", "Comida orgánica", "Experiencias gastronómicas"],
+    "painPoints": ["Cafeterías demasiado ruidosas", "Falta de Wi-Fi adecuado", "Comida sin químicos"]
+  },
+  "contact": {
+    "email": "info@saboryraiz.com",
+    "phone": "+54 9 11 5555-1234",
+    "whatsapp": "+54 9 11 5555-1234",
+    "address": "Calle Las Orquídeas 450, Barrio Norte",
+    "schedule": "Lunes a Domingo: 8am - 8pm"
+  },
+  "social": {
+    "instagram": "@SaborYRaiz_Cafe",
+    "facebook": "SaborYRaizCafe"
+  }
+}
