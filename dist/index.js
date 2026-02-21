@@ -11,6 +11,7 @@ import chalk from 'chalk';
 import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 import { processBusinessDocument, getDemoBusinessData } from './services/aiService.js';
 import { saveSiteData, saveToFirestore } from './services/firestoreService.js';
 const __filename = fileURLToPath(import.meta.url);
@@ -169,7 +170,7 @@ function copyTemplateDir(src, dest) {
         }
     }
 }
-async function generateSite(configPath, businessDataPath) {
+async function generateSite(configPath, businessDataPath, doBuild) {
     console.log(chalk.bold.cyan('\n🚀 Generando sitio web...\n'));
     // Cargar configuración
     const config = loadConfig(configPath);
@@ -270,10 +271,35 @@ async function generateSite(configPath, businessDataPath) {
     saveQueue(queue);
     console.log(chalk.green.bold('\n✓ Sitio generado exitosamente!'));
     console.log(chalk.gray('  Ubicación:'), outputPath);
+    // Ejecutar build si se solicita
+    if (doBuild) {
+        console.log(chalk.gray('\n  Ejecutando npm install...'));
+        try {
+            execSync('npm install', { cwd: outputPath, stdio: 'inherit' });
+            console.log(chalk.green('  ✓ Dependencias instaladas'));
+        }
+        catch (error) {
+            console.log(chalk.yellow('  ⚠ npm install tuvo errores'));
+            return;
+        }
+        console.log(chalk.gray('\n  Ejecutando build...'));
+        try {
+            execSync('npm run build', { cwd: outputPath, stdio: 'inherit' });
+            console.log(chalk.green('  ✓ Build completado'));
+        }
+        catch (error) {
+            console.log(chalk.yellow('  ⚠ Build tuvo errores (revisá el output arriba)'));
+        }
+    }
     console.log(chalk.gray('\n  Próximos pasos:'));
-    console.log(chalk.cyan('  1. cd ' + outputPath));
-    console.log(chalk.cyan('  2. npm install'));
-    console.log(chalk.cyan('  3. npm run dev'));
+    if (doBuild) {
+        console.log(chalk.cyan('  Listo para deploy en Vercel!'));
+    }
+    else {
+        console.log(chalk.cyan('  1. cd ' + outputPath));
+        console.log(chalk.cyan('  2. npm install'));
+        console.log(chalk.cyan('  3. npm run dev'));
+    }
     console.log('');
 }
 async function processQueue() {
@@ -323,10 +349,11 @@ program
     .requiredOption('-c, --config <path>', 'Ruta al archivo de configuración')
     .option('-b, --business-data <path>', 'Ruta al archivo con información del negocio (TXT, DOCX, PDF)')
     .option('-d, --demo', 'Usar datos de demostración (sin documento)')
+    .option('--build', 'Ejecutar npm run build después de generar')
     .action(async (options) => {
     try {
         const businessDataPath = options.demo ? null : options.businessData;
-        await generateSite(options.config, businessDataPath);
+        await generateSite(options.config, businessDataPath, options.build);
     }
     catch (error) {
         console.error(chalk.red('Error:'), error);
