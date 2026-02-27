@@ -22,7 +22,7 @@ const __dirname = path.dirname(__filename);
 // Rutas base
 const ROOT_DIR = path.resolve(__dirname, '../');
 const TEMPLATES_DIR = path.join(ROOT_DIR, 'templates');
-const OUTPUT_DIR = path.join(ROOT_DIR, '../sites-output');
+const OUTPUT_DIR = path.join(ROOT_DIR, 'output');
 const CONFIG_DIR = path.join(ROOT_DIR, 'config');
 
 // Rutas alternativas (proyectos de referencia)

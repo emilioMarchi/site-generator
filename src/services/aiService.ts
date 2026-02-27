@@ -174,7 +174,7 @@ async function callGemini(content: string): Promise<BusinessData> {
   
   // Use the official Google library
   const model = genAI.getGenerativeModel({
-    model: 'gemini-2.0-flash-lite-001'
+    model: 'gemini-2.5-flash'
   });
   
   const result = await model.generateContent(STRUCTURE_PROMPT + content);
@@ -186,7 +186,14 @@ async function callGemini(content: string): Promise<BusinessData> {
   
   // Parse JSON (handle potential markdown code blocks)
   const jsonStr = text.replace(/```json|```/g, '').trim();
-  return JSON.parse(jsonStr);
+  const rawData = JSON.parse(jsonStr);
+  
+  // Recursively replace null with undefined
+  const cleanData = JSON.parse(JSON.stringify(rawData), (key, value) => {
+    return value === null ? undefined : value;
+  });
+  
+  return cleanData;
 }
 
 /**

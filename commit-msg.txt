@@ -1,6 +1,0 @@
-feat: agregar flag --deploy y fix dependencias para Vercel
-
-- Agregar flag --deploy para automatizar deployment a Vercel
-- Agregar @opentelemetry/api al template (necesario para firebase-admin)
-- Agregar config pixel-madera.json como ejemplo
-- Agregar datos de negocio pixel-madera.txt

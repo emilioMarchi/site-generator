@@ -173,5 +173,27 @@ Por crear. Por ahora se usa como referencia el proyecto de la Escuela de Música
 - **Resend** (emails)
 
 ---
+ 
+### Comandos de CLI (uso rápido)
 
-*Desarrollado por Emilio Marchi*
+- Generar un sitio
+  - npm run generate --config config/ovnicanal.json
+  - npm run generate -c config/ovnicanal.json
+- Generar con datos de negocio
+  - npm run generate --config config/ovnicanal.json --business-data data/tu-archivo.ext
+- Generar con datos de demostración
+  - npm run generate --config config/ovnicanal.json --demo
+- Generar y construir tras generación
+  - npm run generate --config config/ovnicanal.json --build
+- Despliegue a Vercel tras build
+  - npm run generate --config config/ovnicanal.json --build --deploy
+- Flujo completo (gen -> build -> deploy)
+  - npm run generate --config config/ovnicanal.json --build --deploy
+- Cola de generación
+  - npm run queue:add -- config/ovnicanal.json
+  - npm run queue:status
+  - npm run queue:process
+
+- Notas útiles
+  - Asegúrate de tener vercel CLI instalado y autenticado si vas a desplegar.
+  - Mantén credenciales fuera del repo (env y service accounts).
