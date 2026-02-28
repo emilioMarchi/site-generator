@@ -104,6 +104,7 @@ interface SiteConfig {
     mercadopago?: {
       enabled: boolean;
     };
+    mapKey?: string;
   };
   seo: {
     tituloBase: string;
@@ -252,24 +253,24 @@ function generateEnvFile(config: SiteConfig): string {
 NEXT_PUBLIC_URL="https://${dominio}"
 NEXT_PUBLIC_SITE_URL="https://${dominio}"
 NEXT_PUBLIC_SITE_SLUG="${slug}"
-NEXT_PUBLIC_MAP_KEY="AIzaSyBx22d-0k89a6XudTZTl7yPLHslLPrr_zk"
+NEXT_PUBLIC_MAP_KEY="${config.servicios?.mapKey || ''}"
 
 # Firebase Client (public)
-NEXT_PUBLIC_FIREBASE_API_KEY="${firebase.apiKey || 'AIzaSyDcr8xNlUsfZIhAQ1-IyXr0n9uqE1Slyuc'}"
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="${firebase.authDomain || 'site-generator-db.firebaseapp.com'}"
-NEXT_PUBLIC_FIREBASE_PROJECT_ID="${firebase.projectId || 'site-generator-db'}"
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="${firebase.storageBucket || 'site-generator-db.firebasestorage.app'}"
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="${firebase.messagingSenderId || '184414289992'}"
-NEXT_PUBLIC_FIREBASE_APP_ID="${firebase.appId || '1:184414289992:web:57c1f2ddc8cc3fb00c987d'}"
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID="${firebase.measurementId || 'G-7QRXEGB54J'}"
+NEXT_PUBLIC_FIREBASE_API_KEY="${firebase.apiKey || ''}"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="${firebase.authDomain || ''}"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="${firebase.projectId || ''}"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="${firebase.storageBucket || ''}"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="${firebase.messagingSenderId || ''}"
+NEXT_PUBLIC_FIREBASE_APP_ID="${firebase.appId || ''}"
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID="${firebase.measurementId || ''}"
 
 # Firebase Admin (server-side - for admin panel)
-FIREBASE_PROJECT_ID="${firebase.projectId || 'site-generator-db'}"
+FIREBASE_PROJECT_ID="${firebase.projectId || ''}"
 FIREBASE_CLIENT_EMAIL="${firebase.clientEmail || ''}"
 FIREBASE_PRIVATE_KEY="${firebase.privateKey || ''}"
 
 # --- SERVER VARIABLES ---
-RESEND_API_KEY="${config.servicios.resend?.apiKey || 're_2yRGpzPD_KHK2sgrWVFBPPjsBgSVFKjk3'}"
+RESEND_API_KEY="${config.servicios.resend?.apiKey || ''}"
 `;
 }
 
