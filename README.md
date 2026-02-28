@@ -201,7 +201,7 @@ Por crear. Por ahora se usa como referencia el proyecto de la Escuela de Música
   - npm run generate --config config/ovnicanal.json --build --deploy
 - Cola de generación
   - npm run queue:add -- config/ovnicanal.json
-  - npm run queue:status
+  - npm run queue:statusen espa;ol
   - npm run queue:process
 
 - Nuevas opciones de tipo de sitio
