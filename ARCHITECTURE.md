@@ -210,6 +210,11 @@ FIREBASE_PRIVATE_KEY=...
 4. **Admin SDK:** Required for writing to Firestore from the admin panel
 5. **Client SDK:** Used for reading data on the public site
 
+### Tipos de sitio soportados
+- Landing (página de aterrizaje)
+- Ecommerce
+- Portfolio
+
 ---
 
 ## Commands

@@ -2,60 +2,46 @@
   "sitio": {
     "nombre": "Ovnicanal",
     "slug": "ovnicanal",
-    "descripcion": "Paneles solares y soluciones de energía renovable para tu hogar y empresa. Ahorrá dinero mientras cuidás el planeta.",
-    "tipo": "landing",
-    "template": "landing"
+    "descripcion": "Tu tienda de deportes favorita con los mejores productos para cada disciplina",
+    "tipo": "ecommerce",
+    "template": "ecommerce"
   },
-  
   "dominio": {
     "principal": "ovnicanal.com.ar",
     "www": true,
     "ssl": true
   },
-  
   "theme": {
     "colores": {
       "primary": "#22c55e",
-      "secondary": "#581c87",
-      "accent": "#a855f7"
+      "secondary": "#1e293b",
+      "accent": "#f97316"
     },
     "fuente": "Inter",
     "borderRadius": "8px"
   },
-  
   "contacto": {
-    "email": "emiliomarchi.dev@gmail.com",
-    "telefono": "3425161099",
-    "whatsapp": "3425161099"
+    "email": "contacto@ovnicanal.com.ar",
+    "telefono": "+54 11 4567-8900",
+    "whatsapp": "+54 11 4567-8900",
+    "direccion": "Av. Corrientes 1234, Buenos Aires",
+    "horarios": "Lun a Sáb 9:00 a 21:00, Dom 10:00 a 20:00"
   },
-  
   "redes": {
-    "instagram": "emilio__mar"
+    "instagram": "ovnicanal",
+    "facebook": "ovnicanal",
+    "twitter": "ovnicanal"
   },
-  
   "servicios": {
     "firebase": {
-      "coleccion": "ovnicanal",
-      "apiKey": "AIzaSyDcr8xNlUsfZIhAQ1-IyXr0n9uqE1Slyuc",
-      "authDomain": "site-generator-db.firebaseapp.com",
-      "projectId": "site-generator-db",
-      "storageBucket": "site-generator-db.firebasestorage.app",
-      "messagingSenderId": "184414289992",
-      "appId": "1:184414289992:web:57c1f2ddc8cc3fb00c987d",
-      "measurementId": "G-7QRXEGB54J"
+      "coleccion": "ovnicanal"
     },
-    "resend": {
-      "dominio": "ovnicanal.com.ar",
-      "emailFrom": "noreply@ovnicanal.com.ar"
+    "mercadopago": {
+      "enabled": true
     }
   },
-  
   "seo": {
-    "tituloBase": "Ovnicanal | Paneles Solares y Energía Renovable",
-    "metaDescription": "Instalación de paneles solares. Ahorrá en tu factura de luz con energía solar renovable."
-  },
-  
-  "secciones": {
-    "inicio": ["hero", "features", "contacto"]
+    "tituloBase": "Ovnicanal | Tienda de Deportes - Los mejores precios",
+    "metaDescription": "Encuentra todo lo que necesitás para tu deporte favorito. Envío gratis, las mejores marcas y precios exclusivos en Ovnicanal."
   }
 }

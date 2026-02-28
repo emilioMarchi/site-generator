@@ -1,0 +1,46 @@
+{
+  "sitio": {
+    "nombre": "Tienda Demo Test",
+    "slug": "tienda-demo-test",
+    "descripcion": "Tienda de prueba de ecommerce",
+    "tipo": "ecommerce",
+    "template": "ecommerce"
+  },
+  "dominio": {
+    "principal": "tienda-demo-test.com.ar",
+    "www": true,
+    "ssl": true
+  },
+  "theme": {
+    "colores": {
+      "primary": "#10b981",
+      "secondary": "#374151",
+      "accent": "#f59e0b"
+    },
+    "fuente": "Inter",
+    "borderRadius": "8px"
+  },
+  "contacto": {
+    "email": "ventas@tienda-demo-test.com.ar",
+    "telefono": "+54 11 1234-5678",
+    "whatsapp": "+54 11 1234-5678",
+    "direccion": "Av. Principal 123, Ciudad",
+    "horarios": "Lun a Vie 9:00 a 18:00"
+  },
+  "redes": {
+    "instagram": "tiendatest",
+    "facebook": "tiendatest"
+  },
+  "servicios": {
+    "firebase": {
+      "coleccion": "tienda-demo-test"
+    },
+    "mercadopago": {
+      "enabled": true
+    }
+  },
+  "seo": {
+    "tituloBase": "Tienda Demo Test | Los mejores productos",
+    "metaDescription": "Tienda de prueba con los mejores productos"
+  }
+}

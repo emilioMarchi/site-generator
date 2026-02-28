@@ -197,3 +197,13 @@ Por crear. Por ahora se usa como referencia el proyecto de la Escuela de Música
 - Notas útiles
   - Asegúrate de tener vercel CLI instalado y autenticado si vas a desplegar.
   - Mantén credenciales fuera del repo (env y service accounts).
+- Flujo completo (gen -> build -> deploy)
+  - npm run generate --config config/ovnicanal.json --build --deploy
+- Cola de generación
+  - npm run queue:add -- config/ovnicanal.json
+  - npm run queue:status
+  - npm run queue:process
+
+- Nuevas opciones de tipo de sitio
+  - Puedes pasar el tipo de sitio con -t/--type (landing | ecommerce | portfolio)
+  - Ejemplo: npm run generate -c config/ovnicanal.json -t portfolio

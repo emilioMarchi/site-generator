@@ -1,0 +1,46 @@
+{
+  "sitio": {
+    "nombre": "Tienda Fashion",
+    "slug": "tienda-fashion",
+    "descripcion": "Moda y tendencias para vos",
+    "tipo": "ecommerce",
+    "template": "ecommerce"
+  },
+  "dominio": {
+    "principal": "tienda-fashion.com.ar",
+    "www": true,
+    "ssl": true
+  },
+  "theme": {
+    "colores": {
+      "primary": "#2563eb",
+      "secondary": "#1e1e2e",
+      "accent": "#ec4899"
+    },
+    "fuente": "Inter",
+    "borderRadius": "8px"
+  },
+  "contacto": {
+    "email": "ventas@tienda-fashion.com.ar",
+    "telefono": "+54 11 9876-5432",
+    "whatsapp": "+54 11 9876-5432",
+    "direccion": "Av. Florida 456, Buenos Aires",
+    "horarios": "Lun a Sáb 10:00 a 20:00"
+  },
+  "redes": {
+    "instagram": "tiendafashion",
+    "facebook": "tiendafashion"
+  },
+  "servicios": {
+    "firebase": {
+      "coleccion": "tienda-fashion"
+    },
+    "mercadopago": {
+      "enabled": true
+    }
+  },
+  "seo": {
+    "tituloBase": "Tienda Fashion | Moda y Tendencias",
+    "metaDescription": "Las mejores tendencias en moda para vos"
+  }
+}

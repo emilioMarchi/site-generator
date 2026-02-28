@@ -1,0 +1,17 @@
+{
+  "sitio": {
+    "nombre": "Mi Portfolio",
+    "slug": "mi-portfolio",
+    "descripcion": "Portafolio de ejemplo",
+    "tipo": "portfolio",
+    "template": "portfolio"
+  },
+  "dominio": { "principal": "mi-portfolio.ej", "www": true, "ssl": true },
+  "theme": { "colores": { "primary": "#8b5cf6", "secondary": "#374151", "accent": "#f472b6" }, "fuente": "Inter", "borderRadius": "8px" },
+  "contacto": { "email": "portfolio@example.com", "telefono": "+54 11 0000-0000" },
+  "redes": {},
+  "servicios": { "firebase": { "coleccion": "portfolio" } },
+  "seo": { "tituloBase": "Mi Portfolio", "metaDescription": "Portfolio de ejemplo" },
+  "secciones": {},
+  "pages": []
+}

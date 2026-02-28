@@ -1,0 +1,17 @@
+{
+  "sitio": {
+    "nombre": "Mi Ecommerce",
+    "slug": "mi-ecommerce",
+    "descripcion": "Tienda de ejemplo",
+    "tipo": "ecommerce",
+    "template": "ecommerce"
+  },
+  "dominio": { "principal": "mi-ecommerce.ej", "www": true, "ssl": true },
+  "theme": { "colores": { "primary": "#0d9488", "secondary": "#374151", "accent": "#f59e0b" }, "fuente": "Inter", "borderRadius": "8px" },
+  "contacto": { "email": "tienda@ejemplo.com", "telefono": "+54 11 0000-0000" },
+  "redes": {},
+  "servicios": { "firebase": { "coleccion": "tienda" } },
+  "seo": { "tituloBase": "Mi Ecommerce", "metaDescription": "Tienda de ejemplo" },
+  "secciones": {},
+  "pages": []
+}

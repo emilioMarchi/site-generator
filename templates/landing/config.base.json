@@ -1,0 +1,37 @@
+{
+  "sitio": {
+    "nombre": "",
+    "slug": "",
+    "descripcion": "",
+    "tipo": "landing",
+    "template": "landing"
+  },
+  "dominio": {
+    "principal": "example.com",
+    "www": true,
+    "ssl": true
+  },
+  "theme": {
+    "colores": {
+      "primary": "#2563eb",
+      "secondary": "#334155",
+      "accent": "#f472b6"
+    },
+    "fuente": "Inter",
+    "borderRadius": "8px"
+  },
+  "contacto": {
+    "email": "",
+    "telefono": ""
+  },
+  "redes": {},
+  "servicios": {
+    "firebase": { "coleccion": "sites" }
+  },
+  "seo": {
+    "tituloBase": "",
+    "metaDescription": ""
+  },
+  "secciones": {},
+  "pages": []
+}
