@@ -11,11 +11,15 @@ export const ProductCard = ({ title, description, price, image, category }: Prop
   return (
     <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
       <div className="relative h-64 overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-        />
+{image ? (
+  <img
+    src={image}
+    alt={title}
+    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+  />
+) : (
+  <div className="w-full h-full bg-gray-200 flex items-center justify-center">Imagen no disponible</div>
+)}
         <div className="absolute top-3 left-3">
           <span className="px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">
             {category}

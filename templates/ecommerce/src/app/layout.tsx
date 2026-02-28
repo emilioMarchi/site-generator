@@ -1,5 +1,5 @@
 import './globals.css';
-import { getSiteConfig } from '../lib/siteData';
+import { getSiteData } from '../lib/siteData';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const config = getSiteConfig();
+  const config = getSiteData();
   
   const siteName = config.sitio.nombre;
   const seoTitle = config.seo.tituloBase || `${siteName} | Tu tienda online`;

@@ -1,22 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 
-export interface Product {
-  id: number;
+export interface Project {
+  id: string;
   title: string;
-  name?: string;
   description: string;
-  price: string;
-  priceFrom?: number;
-  image: string;
-  category?: string;
+  image?: string;
+  tags?: string[];
+  link?: string;
   featured?: boolean;
-}
-
-export interface Category {
-  name: string;
-  image: string;
-  count: number;
+  orden: number;
 }
 
 export interface ContactInfo {
@@ -41,7 +34,7 @@ export interface BusinessData {
   name: string;
   tagline?: string;
   description?: string;
-  services?: Product[];
+  projects?: Project[];
   contact?: ContactInfo;
   social?: SocialLinks;
 }
@@ -99,39 +92,12 @@ export function getBusiness() {
   return getSiteData().business;
 }
 
-export function getProducts() {
-  const services = getSiteData().business?.services || [];
-  return services.map((s: any, idx: number): Product => ({
-    id: idx + 1,
-    title: s.name,
-    name: s.name,
-    description: s.description,
-    price: s.price || 'Consultar',
-    priceFrom: s.priceFrom,
-    image: s.image || '',
-    category: s.category,
-    featured: s.featured
-  }));
+export function getProjects() {
+  return getSiteData().business?.projects || [];
 }
 
-export function getFeaturedProducts() {
-  return getProducts().filter(p => p.featured);
-}
-
-export function getCategories(): Category[] {
-  const products = getProducts();
-  const categoryMap = new Map<string, number>();
-  
-  products.forEach(p => {
-    const cat = p.category || 'General';
-    categoryMap.set(cat, (categoryMap.get(cat) || 0) + 1);
-  });
-  
-  return Array.from(categoryMap.entries()).map(([name, count]) => ({
-    name,
-    image: '',
-    count
-  }));
+export function getFeaturedProjects() {
+  return getProjects().filter(p => p.featured);
 }
 
 export function getContact() {
@@ -157,37 +123,36 @@ export function getSeo() {
 function getDefaultData(): SiteDocument {
   return {
     sitio: {
-      nombre: 'Mi Tienda',
-      slug: 'mi-tienda',
-      descripcion: 'Tienda online',
-      tipo: 'ecommerce',
-      template: 'ecommerce'
+      nombre: 'Mi Portfolio',
+      slug: 'mi-portfolio',
+      descripcion: 'Portfolio de proyectos',
+      tipo: 'portfolio',
+      template: 'portfolio'
     },
     theme: {
       colores: {
-        primary: '#4f46e5',
+        primary: '#2563eb',
         secondary: '#1e40af',
         accent: '#f59e0b',
         background: '#ffffff',
         text: '#1f2937'
       },
-      fuente: 'Inter',
-      borderRadius: '12px'
+      fuente: 'Inter'
     },
     business: {
-      name: 'Mi Tienda',
-      tagline: 'Tu tienda online',
-      description: 'Tienda de productos',
-      services: [],
+      name: 'Mi Portfolio',
+      tagline: 'Proyectos destacados',
+      description: 'Colección de mis trabajos',
+      projects: [],
       contact: {
-        email: 'contacto@tienda.com',
+        email: 'contacto@portfolio.com',
         phone: '+54 11 0000-0000'
       },
       social: {}
     },
     seo: {
-      tituloBase: 'Mi Tienda',
-      metaDescription: 'Tienda online'
+      tituloBase: 'Mi Portfolio',
+      metaDescription: 'Portfolio de proyectos'
     }
   };
 }

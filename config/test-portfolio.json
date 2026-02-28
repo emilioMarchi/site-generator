@@ -1,0 +1,40 @@
+{
+  "sitio": {
+    "nombre": "Mi Portfolio",
+    "slug": "test-portfolio",
+    "descripcion": "Portfolio de prueba",
+    "tipo": "portfolio",
+    "template": "portfolio"
+  },
+  "dominio": {
+    "principal": "test-portfolio.com",
+    "www": true,
+    "ssl": true
+  },
+  "theme": {
+    "colores": {
+      "primary": "#8b5cf6",
+      "secondary": "#374151",
+      "accent": "#f472b6"
+    },
+    "fuente": "Inter",
+    "borderRadius": "8px"
+  },
+  "contacto": {
+    "email": "contacto@testportfolio.com",
+    "telefono": "+54 11 1234-5678"
+  },
+  "redes": {
+    "instagram": "testportfolio",
+    "linkedin": "testportfolio"
+  },
+  "servicios": {
+    "firebase": {
+      "coleccion": "test-portfolio"
+    }
+  },
+  "seo": {
+    "tituloBase": "Mi Portfolio - Inicio",
+    "metaDescription": "Portfolio de prueba"
+  }
+}

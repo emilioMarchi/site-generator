@@ -1,7 +1,7 @@
-import { getSiteConfig } from '../lib/siteData';
 import PageClient from './PageClient';
+import { getSiteData } from '../lib/siteData';
 
 export default function Page() {
-  const config = getSiteConfig();
-  return <PageClient config={config} />;
+  const data = getSiteData();
+  return <PageClient data={data} />;
 }

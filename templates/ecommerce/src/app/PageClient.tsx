@@ -9,51 +9,61 @@ import { Categories } from './components/Categories';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { Navbar } from './components/Navbar';
-import type { SiteConfig } from '../lib/siteData';
 
 interface PageClientProps {
-  config: SiteConfig;
+  data: any;
 }
 
-export default function PageClient({ config }: PageClientProps) {
-  const products = config.productos || [];
-  const categories = config.categorias || [];
-  const featuredProducts = products.slice(0, 4);
+export default function PageClient({ data }: PageClientProps) {
+  const products = data.business?.services?.map((s: any, idx: number) => ({
+    id: idx + 1,
+    title: s.name,
+    name: s.name,
+    description: s.description,
+    price: s.price || 'Consultar',
+    image: s.image || '',
+    category: s.category,
+    featured: s.featured
+  })) || [];
+  
+  const featuredProducts = products.filter((p: any) => p.featured);
+  const categories: any[] = [];
+  const sitio = data.sitio;
+  const contacto = data.business?.contact;
+  const social = data.business?.social;
+  
+  const displayFeatured = featuredProducts.length > 0 ? featuredProducts : products.slice(0, 4);
 
   return (
     <main className="min-h-screen bg-gray-50">
       <Navbar 
-        siteName={config.sitio.nombre}
-        email={config.contacto.email}
-        telefono={config.contacto.telefono}
+        siteName={sitio.nombre}
+        email={contacto?.email || ''}
+        telefono={contacto?.phone}
       />
       
       <Hero 
-        siteName={config.sitio.nombre}
-        description={config.sitio.descripcion}
+        siteName={sitio.nombre}
+        description={sitio.descripcion}
       />
       
       <Features />
       
-      {featuredProducts.length > 0 && (
+      {displayFeatured.length > 0 && (
         <section className="py-16 px-4 max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Productos Destacados</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">Descubre nuestra colección exclusiva de productos seleccionados para ti</p>
           </div>
           
-          <ProductSlider products={featuredProducts} />
+          <ProductSlider products={displayFeatured} />
         </section>
       )}
       
       <TextImage 
         title="Productos de Calidad Premium"
-        description={config.sitio.descripcion}
+        description={sitio.descripcion}
       />
-      
-      {categories.length > 0 && (
-        <Categories categories={categories} />
-      )}
       
       {products.length > 0 && (
         <section className="py-16 px-4 max-w-7xl mx-auto">
@@ -63,7 +73,7 @@ export default function PageClient({ config }: PageClientProps) {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product) => (
+            {products.map((product: any) => (
               <ProductCard key={product.id} {...product} />
             ))}
           </div>
@@ -71,17 +81,17 @@ export default function PageClient({ config }: PageClientProps) {
       )}
       
       <Contact 
-        email={config.contacto.email}
-        telefono={config.contacto.telefono}
-        direccion={config.contacto.direccion}
+        email={contacto?.email || ''}
+        telefono={contacto?.phone}
+        direccion={contacto?.address}
       />
       
       <Footer 
-        siteName={config.sitio.nombre}
-        email={config.contacto.email}
-        telefono={config.contacto.telefono}
-        instagram={config.redes?.instagram}
-        facebook={config.redes?.facebook}
+        siteName={sitio.nombre}
+        email={contacto?.email || ''}
+        telefono={contacto?.phone}
+        instagram={social?.instagram}
+        facebook={social?.facebook}
       />
     </main>
   );

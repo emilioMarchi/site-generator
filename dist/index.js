@@ -16,6 +16,22 @@ import { processBusinessDocument, getDemoBusinessData } from './services/aiServi
 import { saveSiteData, saveToFirestore } from './services/firestoreService.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+// Util: deep-merge two objects (source overrides target)
+function mergeDeep(target, source) {
+    if (!source || typeof source !== 'object')
+        return target;
+    const out = { ...target };
+    for (const key of Object.keys(source)) {
+        const v = source[key];
+        if (v && typeof v === 'object' && !Array.isArray(v)) {
+            out[key] = mergeDeep(out[key] ?? {}, v);
+        }
+        else {
+            out[key] = v;
+        }
+    }
+    return out;
+}
 // Rutas base
 const ROOT_DIR = path.resolve(__dirname, '../');
 const TEMPLATES_DIR = path.join(ROOT_DIR, 'templates');
@@ -53,6 +69,7 @@ function addToQueue(configPath) {
     else {
         console.log(chalk.yellow(`⚠ Ya está en la cola: ${configPath}`));
     }
+    // (Template-specific base data for business will be merged after templatePath is resolved)
 }
 function getTemplateVariables(config) {
     return {
@@ -170,13 +187,15 @@ function copyTemplateDir(src, dest) {
         }
     }
 }
-async function generateSite(configPath, businessDataPath, doBuild, doDeploy) {
+async function generateSite(configPath, businessDataPath, doBuild, doDeploy, overrideTipo) {
     console.log(chalk.bold.cyan('\n🚀 Generando sitio web...\n'));
     // Cargar configuración
-    const config = loadConfig(configPath);
+    let config = loadConfig(configPath);
     const { slug, template, nombre, tipo } = config.sitio;
-    console.log(chalk.gray('  Tipo:'), tipo || 'multipage');
-    console.log(chalk.gray('  Template:'), template);
+    // Display the effective type (respecting any override from CLI)
+    const displayTipo = overrideTipo ?? (tipo ?? 'landing');
+    console.log(chalk.gray('  Tipo:'), displayTipo);
+    // Template name will be resolved below; log after resolution
     console.log(chalk.gray('  Nombre:'), nombre);
     console.log(chalk.gray('  Slug:'), slug);
     // Procesar documento de negocio con IA (si se proporciona)
@@ -206,9 +225,39 @@ async function generateSite(configPath, businessDataPath, doBuild, doDeploy) {
     console.log('');
     // Determinar la ruta de la plantilla
     let templatePath = path.join(TEMPLATES_DIR, template);
+    // If an override type is provided, prefer its template path when available
+    if (typeof (overrideTipo) !== 'undefined' && overrideTipo) {
+        const t = overrideTipo;
+        const candidate = t === 'portfolio' ? path.join(TEMPLATES_DIR, 'portfolio') : path.join(TEMPLATES_DIR, t);
+        if (fs.existsSync(candidate)) {
+            templatePath = candidate;
+        }
+        else {
+            const fallbackTemplate = path.join(TEMPLATES_DIR, 'landing');
+            if (fs.existsSync(fallbackTemplate))
+                templatePath = fallbackTemplate;
+        }
+    }
     // Si no existe el template específico, usar el tipo como fallback
     if (!fs.existsSync(templatePath)) {
-        templatePath = path.join(TEMPLATES_DIR, tipo || 'multipage');
+        const effectiveTipo = overrideTipo ?? (tipo ?? 'landing');
+        if (effectiveTipo === 'portfolio') {
+            const portfolioPath = path.join(TEMPLATES_DIR, 'portfolio');
+            if (fs.existsSync(portfolioPath)) {
+                templatePath = portfolioPath;
+            }
+            else {
+                // Fall back al landing si no existe plantilla portfolio
+                const fallbackLanding = path.join(TEMPLATES_DIR, 'landing');
+                if (fs.existsSync(fallbackLanding))
+                    templatePath = fallbackLanding;
+            }
+        }
+        else {
+            const fallbackPath = path.join(TEMPLATES_DIR, effectiveTipo);
+            if (fs.existsSync(fallbackPath))
+                templatePath = fallbackPath;
+        }
     }
     // Si aún no existe, buscar en proyectos de referencia
     if (!fs.existsSync(templatePath)) {
@@ -221,12 +270,43 @@ async function generateSite(configPath, businessDataPath, doBuild, doDeploy) {
             throw new Error(`Plantilla no encontrada: ${template}. Busca en: ${templatePath}`);
         }
     }
-    // Crear directorio de salida
-    const outputPath = path.join(OUTPUT_DIR, slug);
+    // Mezclar configuración base de la plantilla (si existe)
+    const baseConfigPath = path.join(templatePath, 'config.base.json');
+    if (fs.existsSync(baseConfigPath)) {
+        try {
+            const base = JSON.parse(fs.readFileSync(baseConfigPath, 'utf-8'));
+            config = mergeDeep(base, config);
+        }
+        catch {
+            // ignore parse errors, keep original config
+        }
+    }
+    // Mezclar datos de negocio base de la plantilla (si existe)
+    const baseBusinessPath = path.join(templatePath, 'business.base.json');
+    if (fs.existsSync(baseBusinessPath) && businessData) {
+        try {
+            const baseBiz = JSON.parse(fs.readFileSync(baseBusinessPath, 'utf-8'));
+            businessData = mergeDeep(baseBiz, businessData);
+        }
+        catch {
+            // ignore parse errors
+        }
+    }
+    // Crear directorio de salida (manejo de conflicto en Windows)
+    let outputPath = path.join(OUTPUT_DIR, slug);
     if (fs.existsSync(outputPath)) {
         console.log(chalk.yellow(`⚠ El directorio ${slug} ya existe. Se sobrescribirá.`));
-        fs.removeSync(outputPath);
+        try {
+            fs.removeSync(outputPath);
+        }
+        catch (err) {
+            console.warn('WARNING: No se pudo eliminar la carpeta existente. Creando una ruta alternativa para evitar fallos.');
+            const altPath = path.join(OUTPUT_DIR, slug + '_' + Date.now());
+            fs.ensureDirSync(altPath);
+            outputPath = altPath;
+        }
     }
+    console.log(chalk.gray('  Plantilla efectiva:'), path.basename(templatePath));
     console.log(chalk.gray('  Copiando plantilla...'));
     // Copiar plantilla (manualmente, ignorando node_modules)
     copyTemplateDir(templatePath, outputPath);
@@ -367,6 +447,7 @@ program
     .command('generate')
     .description('Generar un sitio a partir de un archivo de configuración')
     .requiredOption('-c, --config <path>', 'Ruta al archivo de configuración')
+    .option('-t, --type <type>', 'Tipo de sitio a generar: landing | ecommerce | portfolio')
     .option('-b, --business-data <path>', 'Ruta al archivo con información del negocio (TXT, DOCX, PDF)')
     .option('-d, --demo', 'Usar datos de demostración (sin documento)')
     .option('--build', 'Ejecutar npm run build después de generar')
@@ -374,7 +455,7 @@ program
     .action(async (options) => {
     try {
         const businessDataPath = options.demo ? null : options.businessData;
-        await generateSite(options.config, businessDataPath, options.build, options.deploy);
+        await generateSite(options.config, businessDataPath, options.build, options.deploy, options.type);
     }
     catch (error) {
         console.error(chalk.red('Error:'), error);

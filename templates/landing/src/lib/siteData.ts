@@ -1,80 +1,181 @@
-/**
- * Site Data Service
- * Loads site data from site-data.json
- */
+import fs from 'fs';
+import path from 'path';
 
-import siteDataJson from '../../site-data.json';
-import type { SiteDocument } from '@/types/site';
+export interface Service {
+  id: string;
+  name: string;
+  description: string;
+  price?: string;
+  priceFrom?: number;
+  priceTo?: number;
+  currency?: string;
+  duration?: string;
+  process?: string;
+  includes?: string[];
+  featured?: boolean;
+  orden: number;
+}
 
-// Type assertion for imported JSON
-const data = siteDataJson as SiteDocument;
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  bio?: string;
+  photo?: string;
+}
 
-/**
- * Get the complete site data
- */
+export interface ContactInfo {
+  email?: string;
+  phone?: string;
+  whatsapp?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  schedule?: string;
+}
+
+export interface SocialLinks {
+  instagram?: string;
+  facebook?: string;
+  youtube?: string;
+  linkedin?: string;
+  twitter?: string;
+}
+
+export interface BusinessData {
+  name: string;
+  tagline?: string;
+  description?: string;
+  history?: string;
+  mission?: string;
+  vision?: string;
+  values?: string[];
+  services?: Service[];
+  team?: TeamMember[];
+  contact?: ContactInfo;
+  social?: SocialLinks;
+  differentiators?: string[];
+}
+
+export interface ThemeConfig {
+  colores: {
+    primary: string;
+    secondary?: string;
+    accent?: string;
+    background?: string;
+    text?: string;
+  };
+  fuente: string;
+  fuenteHeadings?: string;
+  borderRadius?: string;
+}
+
+export interface SeoConfig {
+  tituloBase: string;
+  metaDescription: string;
+}
+
+export interface SitioMeta {
+  nombre: string;
+  slug: string;
+  descripcion: string;
+  tipo: string;
+  template: string;
+}
+
+export interface SiteDocument {
+  sitio: SitioMeta;
+  theme: ThemeConfig;
+  business: BusinessData;
+  seo: SeoConfig;
+}
+
+let cachedData: SiteDocument | null = null;
+
 export function getSiteData(): SiteDocument {
-  return data;
+  if (cachedData) return cachedData;
+  
+  try {
+    const dataPath = path.join(process.cwd(), 'site-data.json');
+    const dataFile = fs.readFileSync(dataPath, 'utf-8');
+    cachedData = JSON.parse(dataFile) as SiteDocument;
+    return cachedData!;
+  } catch (error) {
+    console.warn('No se pudo cargar site-data.json, usando datos por defecto');
+    return getDefaultData();
+  }
 }
 
-/**
- * Get business data
- */
 export function getBusiness() {
-  return data.business;
+  return getSiteData().business;
 }
 
-/**
- * Get services
- */
 export function getServices() {
-  return data.business?.services || [];
+  return getSiteData().business?.services || [];
 }
 
-/**
- * Get featured services
- */
 export function getFeaturedServices() {
   return getServices().filter(s => s.featured);
 }
 
-/**
- * Get contact info
- */
 export function getContact() {
-  return data.business?.contact;
+  return getSiteData().business?.contact;
 }
 
-/**
- * Get social links
- */
 export function getSocial() {
-  return data.business?.social;
+  return getSiteData().business?.social;
 }
 
-/**
- * Get team members
- */
 export function getTeam() {
-  return data.business?.team || [];
+  return getSiteData().business?.team || [];
 }
 
-/**
- * Get site metadata
- */
 export function getSitio() {
-  return data.sitio;
+  return getSiteData().sitio;
 }
 
-/**
- * Get theme config
- */
 export function getTheme() {
-  return data.theme;
+  return getSiteData().theme;
 }
 
-/**
- * Get SEO config
- */
 export function getSeo() {
-  return data.seo;
+  return getSiteData().seo;
+}
+
+function getDefaultData(): SiteDocument {
+  return {
+    sitio: {
+      nombre: 'Mi Negocio',
+      slug: 'mi-negocio',
+      descripcion: 'Descripción de mi negocio',
+      tipo: 'landing',
+      template: 'landing'
+    },
+    theme: {
+      colores: {
+        primary: '#2563eb',
+        secondary: '#1e40af',
+        accent: '#f59e0b',
+        background: '#ffffff',
+        text: '#1f2937'
+      },
+      fuente: 'Inter'
+    },
+    business: {
+      name: 'Mi Negocio',
+      tagline: 'Tu mejor opción',
+      description: 'Descripción de servicios',
+      services: [],
+      team: [],
+      contact: {
+        email: 'contacto@negocio.com',
+        phone: '+54 11 0000-0000'
+      },
+      social: {}
+    },
+    seo: {
+      tituloBase: 'Mi Negocio',
+      metaDescription: 'Descripción SEO'
+    }
+  };
 }

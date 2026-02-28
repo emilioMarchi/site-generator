@@ -1,7 +1,7 @@
 {
   "sitio": {
     "nombre": "Tienda Demo Test",
-    "slug": "tienda-demo-test",
+    "slug": "tienda-pro",
     "descripcion": "Tienda de prueba de ecommerce",
     "tipo": "ecommerce",
     "template": "ecommerce"

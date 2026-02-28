@@ -1,0 +1,41 @@
+{
+  "sitio": {
+    "nombre": "Mi Landing",
+    "slug": "test-landing",
+    "descripcion": "Landing page de prueba",
+    "tipo": "landing",
+    "template": "landing"
+  },
+  "dominio": {
+    "principal": "test-landing.com",
+    "www": true,
+    "ssl": true
+  },
+  "theme": {
+    "colores": {
+      "primary": "#2563eb",
+      "secondary": "#1e40af",
+      "accent": "#f59e0b"
+    },
+    "fuente": "Inter",
+    "borderRadius": "8px"
+  },
+  "contacto": {
+    "email": "contacto@testlanding.com",
+    "telefono": "+54 11 1234-5678",
+    "whatsapp": "+54 11 1234-5678"
+  },
+  "redes": {
+    "instagram": "testlanding",
+    "facebook": "testlanding"
+  },
+  "servicios": {
+    "firebase": {
+      "coleccion": "test-landing"
+    }
+  },
+  "seo": {
+    "tituloBase": "Mi Landing - Inicio",
+    "metaDescription": "Landing page de prueba"
+  }
+}

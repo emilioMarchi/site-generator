@@ -40,11 +40,15 @@ export const ProductSlider = ({ products }: Props) => {
         {getVisibleProducts().map((product, index) => (
           <div key={`${product.id}-${index}`} className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
             <div className="relative h-64 overflow-hidden">
-              <img
-                src={product.image}
-                alt={product.title}
-                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-              />
+{product.image ? (
+  <img
+    src={product.image}
+    alt={product.title}
+    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+  />
+) : (
+  <div className="w-full h-full bg-gray-200 flex items-center justify-center">Imagen no disponible</div>
+)}
               <div className="absolute top-3 left-3">
                 <span className="px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">
                   Nuevo
